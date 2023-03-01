@@ -4,7 +4,12 @@
     <div class="project">
         <div class="container">
             <div class="card mt-4 p-4 text-center">
-                <div class="d-flex justify-content-between mb-2">
+                <div class="card-header mb-2">
+                    <h4>
+                        <strong>Author: </strong>{{ $project->author }}
+                    </h4>
+                </div>
+                <div class="d-flex justify-content-between mb-1">
                     <div class="type">
                         <p>
                             <strong>Type: </strong>{{$project->type->name}}
@@ -21,14 +26,19 @@
                         </form>
                     </div>
                 </div>
-                <div>
-                    <h4>
-                        <strong>Author: </strong>{{ $project->author }}
-                    </h4>
-                </div>
                 <div class="card-body">
                     <div class="card-title mb-3">
                         <h2>{{ $project->title }}</h2>
+                    </div>
+                    <div>
+                        <p>
+                            <strong>Technology: </strong> 
+                            @foreach ($project->technologies as $technology)
+                                <span class="badge rounded-pill" style="background-color: {{ $technology->color }}">
+                                    {{ $technology->name }}
+                                </span>
+                            @endforeach
+                        </p>
                     </div>
                     <div class="card-image mb-3">
                         @if (str_starts_with($project->image, 'http'))

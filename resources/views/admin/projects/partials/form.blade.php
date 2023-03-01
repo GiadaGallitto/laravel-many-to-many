@@ -41,12 +41,14 @@
     </div>
 
     <div class="mb-3">
-        <label for="type_id" class="form-label">Type</label>
-        <select class="form-control @error('type_id') is-invalid @enderror" id="type_id" name="type_id">
-            @foreach ($types as $type)                
-            <option style="color: {{$type->color}}" value="{{ $type->id }}" {{ old('type_id', $project->type_id) == $type->id ? 'selected' : '' }}>{{$type->name}}</option>
-            @endforeach
-        </select>
+        <label for="project_technologies" class="form-label d-block">Technologies: </label>
+        
+        @foreach ($technologies as $technology)
+            <input type="checkbox" class="form-check-input @error('project_technologies') is-invalid @enderror" id="project_technologies" 
+            name="technologies" value="{{$technology->id}}">
+            <label class="form-check-label" for="project_technologies">{{ $technology->name }}</label>
+        @endforeach
+
         @error ('type_id')
             <div class="invalid-feedback">
                 {{$message}}
