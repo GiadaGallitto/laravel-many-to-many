@@ -32,6 +32,7 @@ class ProjectController extends Controller
             'start_date' => 'required',
             'image' => 'required',
             'type_id' => 'required|exists:types,id',
+            'technologies' => 'array|exists:technologies,id',
         ];
 
         $this->messages = [
@@ -85,7 +86,6 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-
         if (!array_key_exists('concluded', $data)) {
             $data['concluded'] = false;
         }
@@ -98,6 +98,7 @@ class ProjectController extends Controller
 
         $newProject = new Project();
         $newProject->fill($data);
+        $newProject->technologies()->sync($data['technologies']);
         $newProject->save();
 
         return redirect()->route('admin.projects.index')->with('message', "The project $newProject->title has been created succesfully")->with('message_class', 'success');

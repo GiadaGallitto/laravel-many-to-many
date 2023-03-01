@@ -45,7 +45,7 @@
         
         @foreach ($technologies as $technology)
             <input type="checkbox" class="form-check-input @error('project_technologies') is-invalid @enderror" id="project_technologies" 
-            name="technologies" value="{{$technology->id}}">
+            name="technologies[]" value="{{$technology->id}}">
             <label class="form-check-label" for="project_technologies">{{ $technology->name }}</label>
         @endforeach
 
