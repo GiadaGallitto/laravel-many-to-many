@@ -18,14 +18,14 @@ class TechnologySeeder extends Seeder
     public function run(Faker $faker)
     {
         $technologies = ['HTML5', 'CSS3', 'SCSS', 'Bootstrap', 'Laravel', 'Python', 'JavaScript', 'PHP', 'Vue3', 'Java', 'Vite', 'Composer', 'NPM', 'Angular', 'C', 'React', 'HTML4', 'Node.js', 'Mysql', ];
-        foreach ($technologies as $technology) {
+        foreach ($technologies as $technologyName) {
             $newTechnology = new Technology();
-            $newTechnology->name = $technology;
-            $newTechnology->slug = Str::slug($technology);
+            $newTechnology->name = $technologyName;
+            $newTechnology->slug = Str::slug($technologyName);
             $newTechnology->color = $faker->unique()->colorName();
             $newTechnology->save();
-            // $newTechnology->slug = $technology->slug . "-$tecnology->id";
-            // $newTechnology->update();
+            $newTechnology->slug = $newTechnology->slug . "-$newTechnology->id";
+            $newTechnology->update();
         }
     }
 }
