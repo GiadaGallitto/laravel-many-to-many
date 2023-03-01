@@ -8,7 +8,7 @@
     @csrf
     @method($method)
 
-    {{-- @if ($errors->any())
+    @if ($errors->any())
         <div class="alert alert-warning">
             <ul>
                 @foreach ($errors->all() as $error)
@@ -18,7 +18,7 @@
                 @endforeach
             </ul>
         </div>
-    @endif --}}
+    @endif
 
     <div class="mb-3">
         <label for="title" class="form-label">Title</label>
@@ -41,19 +41,32 @@
     </div>
 
     <div class="mb-3">
-        <label for="project_technologies" class="form-label d-block">Technologies: </label>
-        
-        @foreach ($technologies as $technology)
-            <input type="checkbox" class="form-check-input @error('project_technologies') is-invalid @enderror" id="project_technologies" 
-            name="technologies[]" value="{{$technology->id}}">
-            <label class="form-check-label" for="project_technologies">{{ $technology->name }}</label>
-        @endforeach
-
+        <label for="type_id" class="form-label">Type</label>
+        <select class="form-control @error('type_id') is-invalid @enderror" id="type_id" name="type_id">
+            @foreach ($types as $type)                
+            <option style="background-color: {{$type->color}}" value="{{ $type->id }}" {{ old('type_id', $project->type_id) == $type->id ? 'selected' : '' }}>{{$type->name}}</option>
+            @endforeach
+        </select>
         @error ('type_id')
             <div class="invalid-feedback">
                 {{$message}}
             </div>
         @enderror
+    </div>
+
+    <div class="mb-3">
+        <label for="project_technologies" class="form-label d-block">Technologies: </label>
+        
+        @foreach ($technologies as $technology)
+            <input type="checkbox" class="form-check-input" id="project_technologies" 
+            name="technologies[]" value="{{$technology->id}}"
+                @if ($errors->any())
+                    @checked(in_array($technology->id, old('technologies',[])))
+                @else
+                    @checked($project->technologies->contains($technology->id))
+                @endif>
+            <label class="form-check-label" for="project_technologies">{{ $technology->name }}</label>
+        @endforeach
     </div>
 
     <div class="mb-3">

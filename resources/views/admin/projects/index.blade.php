@@ -29,6 +29,7 @@
                         <th scope="col">Title</th>
                         <th scope="col">Start Date</th>
                         <th scope="col">Author</th>
+                        <th scope="col">Technology</th>
                         <th class="col">Concluded</th>
                         <th class="col text-center">Tools</th>
                     </tr>
@@ -40,6 +41,13 @@
                             <td class="align-middle">{{ $project->title }}</td>
                             <td class="align-middle">{{ $project->start_date }}</td>
                             <td class="align-middle">{{ $project->author }}</td>
+                            <td class="align-middle">
+                                @forelse ($project->technologies as $technology)
+                                    {{ $technology->name }}
+                                @empty
+                                    No technologies
+                                @endforelse
+                            </td>
                             <td class="align-middle">
                                 <form action="{{ route('admin.projects.toggle', $project->slug) }}" method="POST">
                                     @method('PATCH')

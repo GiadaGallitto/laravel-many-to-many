@@ -154,6 +154,7 @@ class ProjectController extends Controller
             Storage::delete($project->image);
         }
 
+        $project->technologies()->sync($formData['technologies']);
         $project->update($formData);
         return redirect()->route('admin.projects.index', compact('project'))->with('message', "The project $project->title has been updated succesfully")->with('alert-type', 'info');
     }
