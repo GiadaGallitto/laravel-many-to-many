@@ -9,7 +9,18 @@ class Technology extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name', 'slug', 'color',];
+
     public function projects(){
         return $this->belongsToMany(Project::class);
+    }
+
+        /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName(){
+        return 'slug';
     }
 }
