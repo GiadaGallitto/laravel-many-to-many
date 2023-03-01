@@ -43,7 +43,9 @@
                             <td class="align-middle">{{ $project->author }}</td>
                             <td class="align-middle">
                                 @forelse ($project->technologies as $technology)
-                                    {{ $technology->name }}
+                                    <span class="me-1">
+                                        {{ $technology->name }}
+                                    </span>
                                 @empty
                                     No technologies
                                 @endforelse
